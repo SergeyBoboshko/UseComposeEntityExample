@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Use ComposeEntity Example</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="input_description">Type description here</string>
+    <string name="documents">Documents</string>
+    <string name="invoice_pay_doc">Invoice Payment Documents</string>
+    <string name="invoice_pay_doc_desr">Payments you get</string>
 </resources>

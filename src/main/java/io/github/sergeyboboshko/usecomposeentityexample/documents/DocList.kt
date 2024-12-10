@@ -1,4 +1,5 @@
-package io.github.sergeyboboshko.usecomposeentityexample.references
+package io.github.sergeyboboshko.usecomposeentityexample.documents
+
 
 import android.provider.Settings
 import androidx.compose.foundation.background
@@ -21,37 +22,38 @@ import io.github.sergeyboboshko.composeentity.daemons.GlobalContext
 import io.github.sergeyboboshko.composeentity.daemons.SelfNav
 import io.github.sergeyboboshko.composeentity.daemons.mainCustomStack
 import io.github.sergeyboboshko.composeentity.references.base.*
-import io.github.sergeyboboshko.usecomposeentityexample.RefMeterZonesUI
+import io.github.sergeyboboshko.usecomposeentityexample.R as R1
 
 import androidx.compose.material3.Divider
+import androidx.compose.ui.res.stringResource
 import io.github.sergeyboboshko.composeentity.daemons.GlobalColors
 import io.github.sergeyboboshko.composeentity.daemons.navigate
 
 @Composable
-fun RefList (){
+fun DocList (){
     Column(Modifier.padding(all = 4.dp)) {
         Text(
-            text = "References",
+            text = stringResource(R1.string.documents),
             modifier = Modifier
                 .fillMaxWidth()
                 .background(GlobalColors.currentPalette.captionFonColor),
             fontSize = 20.sp
         )
         StyledButton(onClick = {
-            GlobalContext.mainViewModel?.anyUI = RefMeterZonesUI(GlobalContext.context) as BaseUI
+            GlobalContext.mainViewModel?.anyUI = DocPaymentsInvoiceUI() as BaseUI
             GlobalContext.mainViewModel?.navController?.navigate(
                 SelfNav.getMainScreen(), mainCustomStack,
-                RefMeterZonesUI(GlobalContext.context)
+                DocPaymentsInvoiceUI()
             )
         }) {
             Column/*(modifier = Modifier.width(IntrinsicSize.Max)) */{
                 Text(
-                    "Meter Zones",
+                    stringResource(R1.string.invoice_pay_doc),
                     style = MaterialTheme.typography.titleLarge
                 )
                 Divider(color = Color.Gray, thickness = 1.dp)
                 Text(
-                    text = "Zones like day/night",
+                    text = stringResource(R1.string.invoice_pay_doc_desr),
                     style = MaterialTheme.typography.titleSmall
                 )
             }

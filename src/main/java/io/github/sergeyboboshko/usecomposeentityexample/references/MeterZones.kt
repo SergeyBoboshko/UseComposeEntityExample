@@ -3,6 +3,7 @@ package io.github.sergeyboboshko.usecomposeentityexample
 import android.content.Context
 import android.os.Parcelable
 import android.util.Log
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -48,6 +49,7 @@ import javax.inject.Inject
 import kotlin.reflect.KClass
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 
 //******************** Entity --------------------------
 @Parcelize
@@ -122,10 +124,11 @@ class RefMeterZoneViewModel @Inject constructor(
             CommonDescribeField(//Це не обовїязкові опції, списки можуть бути а можуть і ні. Тому робимо через Ані...
                 fieldName="name",
                 fieldType = FieldType.TEXT,
-                label = "Name",
+                label = MyApplication1.appContext.getString(R.string.name)/*GlobalContext.context.getString(R.string.name)*/,
                 placeholder = "Enter name",
                 labelStyleList = TextStyle(color= Color.Red, fontSize = 16.sp, fontWeight = FontWeight.SemiBold),
-                labelStyleView = TextStyle(color= Color.Green, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+                labelStyleView = TextStyle(color= Color.Green, fontSize = 18.sp, fontWeight = FontWeight.SemiBold),
+                useForSort = true
             ) as _BaseDescribeFormElement
 
 

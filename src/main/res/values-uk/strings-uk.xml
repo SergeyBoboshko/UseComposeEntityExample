@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Use ComposeEntity Example</string>
+    <string name="name">Найменування</string>
+    <string name="description">Опис</string>
+    <string name="input_description">Введіть опис тут</string>
+    <string name="documents">Документи</string>
+    <string name="invoice_pay_doc">Заборгованість</string>
+    <string name="invoice_pay_doc_desr">Потребують оплати</string>
+</resources>

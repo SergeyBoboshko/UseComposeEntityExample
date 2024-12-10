@@ -25,33 +25,42 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.github.sergeyboboshko.composeentity.daemons.MainViewModel
 import io.github.sergeyboboshko.composeentity.references.base.CommonReferenceEntity
 import io.github.sergeyboboshko.usecomposeentityexample.screens.MainPage
-import io.github.sergeyboboshko.usecomposeentityexample.ui.theme.ComposeEntityTheme
+
 import kotlin.getValue
 import io.github.sergeyboboshko.composeentity.daemons.GlobalContext
 import io.github.sergeyboboshko.composeentity.daemons.GlobalState
+import io.github.sergeyboboshko.composeentity.daemons.InitComposableEntityVariables
+import io.github.sergeyboboshko.composeentity.daemons.InitComposeEntityColors
 import io.github.sergeyboboshko.composeentity.daemons.SelfNavigation
 import io.github.sergeyboboshko.composeentity.daemons.screens.BottomCommonBar
 import io.github.sergeyboboshko.usecomposeentityexample.daemons.appGlobal
+import io.github.sergeyboboshko.usecomposeentityexample.documents.DocList
+import io.github.sergeyboboshko.usecomposeentityexample.documents.DocPaymentsInvoiceViewModel
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefList
 import io.github.sergeyboboshko.usecomposeentityexample.screens.ScaffoldTopCommon
+import io.github.sergeyboboshko.usecomposeentityexample.ui.theme.UseComposeEntityTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     val viewModel: MainViewModel by viewModels()
     val refMeterZoneViewModel:RefMeterZoneViewModel by viewModels()
+    val DocPaymentsInvoiceViewModel:DocPaymentsInvoiceViewModel by viewModels()
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         GlobalContext.mainViewModel=viewModel
         appGlobal.refMeterZoneViewModel=refMeterZoneViewModel
+        appGlobal.DocPaymentsInvoiceViewModel=DocPaymentsInvoiceViewModel
         enableEdgeToEdge()
         setContent {
+            InitComposableEntityVariables()
+            InitComposeEntityColors()
             var navController = rememberNavController()
             GlobalContext.mainViewModel?.navController = navController
             GlobalContext.context=this
-            ComposeEntityTheme() {
+            UseComposeEntityTheme() {
                 Scaffold(modifier = Modifier.fillMaxSize(),
                     topBar={
                         ScaffoldTopCommon()
@@ -60,8 +69,7 @@ class MainActivity : ComponentActivity() {
                     Surface(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(innerPadding),
-                        color = Color.White
+                            .padding(innerPadding)
                     ) {
                         NavHost(navController = navController, startDestination = "home") {
                             composable("home") {
@@ -122,6 +130,12 @@ class MainActivity : ComponentActivity() {
                                 //NavigationTargets.postpone()
                                 GlobalState.hideAllBottomBarButtons()
                                 RefList()
+                            }
+                            ///******************* REferences list *******************
+                            composable(route="documents_menu_screen"){
+                                //NavigationTargets.postpone()
+                                GlobalState.hideAllBottomBarButtons()
+                                DocList()
                             }
                         }
                     }
