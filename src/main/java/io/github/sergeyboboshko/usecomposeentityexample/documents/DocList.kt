@@ -49,11 +49,11 @@ fun DocList (){
             Column/*(modifier = Modifier.width(IntrinsicSize.Max)) */{
                 Text(
                     stringResource(R1.string.invoice_pay_doc),
-                    style = MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.titleLarge, modifier = Modifier.background(color= GlobalColors.currentPalette.text)
                 )
                 Divider(color = Color.Gray, thickness = 1.dp)
                 Text(
-                    text = stringResource(R1.string.invoice_pay_doc_desr),
+                    text = stringResource(R1.string.invoice_pay_doc_desr), modifier = Modifier.background(color= GlobalColors.currentPalette.text),
                     style = MaterialTheme.typography.titleSmall
                 )
             }

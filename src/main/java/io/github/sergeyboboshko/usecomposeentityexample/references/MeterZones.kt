@@ -78,10 +78,10 @@ data class RefMeterZonesEntityExt(
 
 @Dao
 interface RefMeterZonesDao : SuperTopDAO<RefMeterZonesEntity, RefMeterZonesEntityExt>{
-    @RawQuery(observedEntities = [RefMeterZonesEntity::class, RefMeterZonesEntityExt::class])
+    @RawQuery(observedEntities = [RefMeterZonesEntityExt::class])
     override fun queryExt(query: SupportSQLiteQuery): Flow<List<RefMeterZonesEntityExt>>
 
-    @RawQuery(observedEntities = [RefMeterZonesEntity::class, RefMeterZonesEntityExt::class])
+    @RawQuery(observedEntities = [RefMeterZonesEntity::class])
     override fun query(query: SupportSQLiteQuery): Flow<List<RefMeterZonesEntity>>
 }
 
@@ -157,7 +157,7 @@ class RefMeterZoneViewModel @Inject constructor(
 }
 
 //---UI
-class RefMeterZonesUI(val applicationContext: Context) :
+class RefMeterZonesUI() :
     RefUI() {
     //override var form: Form = RefForm()
     //@OptIn(ExperimentalFoundationApi::class)

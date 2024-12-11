@@ -84,46 +84,7 @@ class MainActivity : ComponentActivity() {
                                 val form =
                                     navController.currentBackStackEntry?.arguments?.getString("form")
                                 SelfNavigation(form?:"")
-//                                //var currentUI = viewModel.anyUI
-//                                var currentUI = mainCustomStack.peek()
-//                                Log.d("TURN_SCREEN","mainCustomStack.elements.size = ${mainCustomStack.size()}")
-//                                if (currentUI!=null) {
-//                                    when (form) {
-//                                        "ADD" -> {
-//                                            GlobalState.hideAllBottomBarButtons()
-//                                            currentUI?.AddEditScreen(true, 0)
-//                                        }
-//
-//                                        "EDIT" -> {
-//                                            GlobalState.hideAllBottomBarButtons()
-//                                            currentUI?.AddEditScreen(false, 0)
-//                                        }
-//
-//                                        "MAIN_SCREEN" -> {
-//                                            GlobalState.showAllBottomBarButtons()
-//                                            Log.d("NAV","IN Main Activity currentUI= $currentUI")
-//                                            currentUI?.MainScreenList()
-//                                        }
-//                                        "VIEW_SCREEN" -> {
-//                                            GlobalState.showAllBottomBarButtons()
-//                                            currentUI?.ViewScreen(0L)
-//                                        }
-//
-//                                        "DETAILS_SCREEN" -> {
-//                                            GlobalState.showAllBottomBarButtons()
-//                                            currentUI?.ViewDetailsScreen(0L)
-//                                        }
-//
-//                                        "MOVIES_SCREEN" -> {
-//                                            GlobalState.hideAllBottomBarButtons()
-//                                            (currentUI as DocUI).showMovements()
-//                                        }
-//                                    }
-//                                }
-//                                else{
-//                                    Text("No UIs in main custom stack")
-//                                }
-                            }
+                           }
                             // LISTS
                             ///******************* REferences list *******************
                             composable(route="references_menu_screen"){

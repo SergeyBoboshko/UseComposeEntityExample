@@ -38,21 +38,21 @@ fun RefList (){
             fontSize = 20.sp
         )
         StyledButton(onClick = {
-            GlobalContext.mainViewModel?.anyUI = RefMeterZonesUI(GlobalContext.context) as BaseUI
+            //GlobalContext.mainViewModel?.anyUI = RefMeterZonesUI(GlobalContext.context) as BaseUI
             GlobalContext.mainViewModel?.navController?.navigate(
-                SelfNav.getMainScreen(), mainCustomStack,
-                RefMeterZonesUI(GlobalContext.context)
+                SelfNav.getMainScreen(),
+                RefMeterZonesUI()
             )
         }) {
             Column/*(modifier = Modifier.width(IntrinsicSize.Max)) */{
                 Text(
                     "Meter Zones",
-                    style = MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.titleLarge, modifier = Modifier.background(color= GlobalColors.currentPalette.text)
                 )
                 Divider(color = Color.Gray, thickness = 1.dp)
                 Text(
                     text = "Zones like day/night",
-                    style = MaterialTheme.typography.titleSmall
+                    style = MaterialTheme.typography.titleSmall, modifier = Modifier.background(color= GlobalColors.currentPalette.text)
                 )
             }
         }
