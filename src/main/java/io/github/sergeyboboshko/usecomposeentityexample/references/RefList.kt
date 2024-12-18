@@ -21,17 +21,18 @@ import io.github.sergeyboboshko.composeentity.daemons.GlobalContext
 import io.github.sergeyboboshko.composeentity.daemons.SelfNav
 import io.github.sergeyboboshko.composeentity.daemons.mainCustomStack
 import io.github.sergeyboboshko.composeentity.references.base.*
-import io.github.sergeyboboshko.usecomposeentityexample.RefMeterZonesUI
+import io.github.sergeyboboshko.usecomposeentityexample.references.RefMeterZonesUI
 
 import androidx.compose.material3.Divider
 import io.github.sergeyboboshko.composeentity.daemons.GlobalColors
+import io.github.sergeyboboshko.composeentity.daemons.localization.LocalizationManager
 import io.github.sergeyboboshko.composeentity.daemons.navigate
 
 @Composable
 fun RefList (){
     Column(Modifier.padding(all = 4.dp)) {
         Text(
-            text = "References",
+            text = LocalizationManager.getTranslation("references"),
             modifier = Modifier
                 .fillMaxWidth()
                 .background(GlobalColors.currentPalette.captionFonColor),
@@ -47,12 +48,31 @@ fun RefList (){
             Column/*(modifier = Modifier.width(IntrinsicSize.Max)) */{
                 Text(
                     "Meter Zones",
-                    style = MaterialTheme.typography.titleLarge, modifier = Modifier.background(color= GlobalColors.currentPalette.text)
+                    style = MaterialTheme.typography.titleLarge, color = GlobalColors.currentPalette.text
                 )
                 Divider(color = Color.Gray, thickness = 1.dp)
                 Text(
                     text = "Zones like day/night",
-                    style = MaterialTheme.typography.titleSmall, modifier = Modifier.background(color= GlobalColors.currentPalette.text)
+                    style = MaterialTheme.typography.titleSmall, color = GlobalColors.currentPalette.text
+                )
+            }
+        }
+        StyledButton(onClick = {
+            //GlobalContext.mainViewModel?.anyUI = RefMeterZonesUI(GlobalContext.context) as BaseUI
+            GlobalContext.mainViewModel?.navController?.navigate(
+                SelfNav.getMainScreen(),
+                RefMetersUI()
+            )
+        }) {
+            Column/*(modifier = Modifier.width(IntrinsicSize.Max)) */{
+                Text(
+                    "Meters",
+                    style = MaterialTheme.typography.titleLarge, color = GlobalColors.currentPalette.text
+                )
+                Divider(color = Color.Gray, thickness = 1.dp)
+                Text(
+                    text = "Meters (of the Electricity meters e.t.c)",
+                    style = MaterialTheme.typography.titleSmall, color = GlobalColors.currentPalette.text
                 )
             }
         }

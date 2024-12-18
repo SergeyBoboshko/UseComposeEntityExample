@@ -1,5 +1,6 @@
 package io.github.sergeyboboshko.usecomposeentityexample.documents
 
+import android.app.LocaleManager
 import android.os.Parcelable
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,6 +22,7 @@ import io.github.sergeyboboshko.composeentity.daemons.SuperTopDAO
 import io.github.sergeyboboshko.composeentity.daemons._BaseDescribeFormElement
 import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.daemons._SuperTopViewModel
+import io.github.sergeyboboshko.composeentity.daemons.localization.LocalizationManager
 import io.github.sergeyboboshko.composeentity.documents.base.CommonDocumentEntity
 import io.github.sergeyboboshko.composeentity.documents.base.CommonDocumentExtEntity
 import io.github.sergeyboboshko.composeentity.documents.base.DocUI
@@ -81,36 +83,22 @@ class DocPaymentsInvoiceViewModel @Inject constructor(repository:DocPaymentsExpe
     ) {
     override var documentType = ___DocPayments
     init{
-        fieldDescriptions["id"] = CommonDescribeField(
-            fieldName = "id",
-            fieldType = FieldType.NUMBER,
-            label = "Id",
-            placeholder = "Select number"
-        ) as _BaseDescribeFormElement
-        fieldDescriptions["id"]?.renderInAddEdit=false
-
-        fieldDescriptions["number"] = CommonDescribeField(
-            fieldName = "number",
-            fieldType = FieldType.NUMBER,
-            label = "Number",
-            placeholder = "Select number"
-        ) as _BaseDescribeFormElement
-
-        fieldDescriptions["date"] = CommonDescribeField(
-            fieldName = "date",
-            fieldType = FieldType.DATE_TIME,
-            label = "Date",
-            placeholder = "Select document date"
-        ) as _BaseDescribeFormElement
-        //---
-
+        showStandartFields()
+        fieldDescriptions["date"]?.readOnly=true
         fieldDescriptions["describe"] = CommonDescribeField(
             fieldName = "describe",
             fieldType = FieldType.TEXT,
             label = MyApplication1.appContext.getString(R.string.description),
             placeholder = MyApplication1.appContext.getString(R.string.input_description)
         )
-        IsInitialized=true
+        fieldDescriptions["isMarkedForDeletion"] = CommonDescribeField(
+            fieldName = "isMarkedForDeletion",
+            fieldType = FieldType.BOOLEAN,
+            label = LocalizationManager.getTranslation("markForDeletion"),
+            placeholder = LocalizationManager.getTranslation("markForDeletion"),
+            readOnly = false
+        )
+            IsInitialized=true
     }
 }
 
@@ -141,7 +129,7 @@ class DocPaymentsInvoiceUI() : DocUI() {
         infoMoves.registers  = infoRegs
     }
 
-    override var viewModel = appGlobal.DocPaymentsInvoiceViewModel as _BaseFormVM
+    override var viewModel = appGlobal.docPaymentsInvoiceViewModel as _BaseFormVM
     //*************--------------------****************---------------**********************--------
     @Composable
     override fun MainScreenList() {

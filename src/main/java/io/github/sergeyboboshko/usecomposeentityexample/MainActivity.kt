@@ -32,27 +32,39 @@ import io.github.sergeyboboshko.composeentity.daemons.GlobalState
 import io.github.sergeyboboshko.composeentity.daemons.InitComposableEntityVariables
 import io.github.sergeyboboshko.composeentity.daemons.InitComposeEntityColors
 import io.github.sergeyboboshko.composeentity.daemons.SelfNavigation
+import io.github.sergeyboboshko.composeentity.daemons.localization.LocalizationManager
 import io.github.sergeyboboshko.composeentity.daemons.screens.BottomCommonBar
 import io.github.sergeyboboshko.usecomposeentityexample.daemons.appGlobal
 import io.github.sergeyboboshko.usecomposeentityexample.documents.DocList
 import io.github.sergeyboboshko.usecomposeentityexample.documents.DocPaymentsInvoiceViewModel
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefList
+import io.github.sergeyboboshko.usecomposeentityexample.references.RefMeterZoneViewModel
+import io.github.sergeyboboshko.usecomposeentityexample.references.RefMetersDetailsViewModel
 import io.github.sergeyboboshko.usecomposeentityexample.screens.ScaffoldTopCommon
 import io.github.sergeyboboshko.usecomposeentityexample.ui.theme.UseComposeEntityTheme
+import io.github.sergeyboboshko.usecomposeentityexample.references.RefMetersViewModel
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     val viewModel: MainViewModel by viewModels()
     val refMeterZoneViewModel:RefMeterZoneViewModel by viewModels()
-    val DocPaymentsInvoiceViewModel:DocPaymentsInvoiceViewModel by viewModels()
+    val refMetersDetailsViewModel:RefMetersDetailsViewModel by viewModels()
+
+    val refMetersViewModel:RefMetersViewModel by viewModels()
+    val docPaymentsInvoiceViewModel:DocPaymentsInvoiceViewModel by viewModels()
+
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         GlobalContext.mainViewModel=viewModel
         appGlobal.refMeterZoneViewModel=refMeterZoneViewModel
-        appGlobal.DocPaymentsInvoiceViewModel=DocPaymentsInvoiceViewModel
+        appGlobal.refMetersDetailsViewModel=refMetersDetailsViewModel
+
+        appGlobal.refMetersViewModel=refMetersViewModel
+        appGlobal.docPaymentsInvoiceViewModel=docPaymentsInvoiceViewModel
+        appGlobal.refMetersDetailsViewModel=refMetersDetailsViewModel
         enableEdgeToEdge()
         setContent {
             InitComposableEntityVariables()
@@ -60,6 +72,7 @@ class MainActivity : ComponentActivity() {
             var navController = rememberNavController()
             GlobalContext.mainViewModel?.navController = navController
             GlobalContext.context=this
+//            LocalizationManager.currentLanguageCode="en"
             UseComposeEntityTheme() {
                 Scaffold(modifier = Modifier.fillMaxSize(),
                     topBar={

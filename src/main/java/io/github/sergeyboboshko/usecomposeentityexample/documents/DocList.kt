@@ -27,13 +27,14 @@ import io.github.sergeyboboshko.usecomposeentityexample.R as R1
 import androidx.compose.material3.Divider
 import androidx.compose.ui.res.stringResource
 import io.github.sergeyboboshko.composeentity.daemons.GlobalColors
+import io.github.sergeyboboshko.composeentity.daemons.localization.LocalizationManager
 import io.github.sergeyboboshko.composeentity.daemons.navigate
 
 @Composable
 fun DocList (){
     Column(Modifier.padding(all = 4.dp)) {
         Text(
-            text = stringResource(R1.string.documents),
+            text = LocalizationManager.getTranslation("documents"),
             modifier = Modifier
                 .fillMaxWidth()
                 .background(GlobalColors.currentPalette.captionFonColor),
@@ -49,11 +50,11 @@ fun DocList (){
             Column/*(modifier = Modifier.width(IntrinsicSize.Max)) */{
                 Text(
                     stringResource(R1.string.invoice_pay_doc),
-                    style = MaterialTheme.typography.titleLarge, modifier = Modifier.background(color= GlobalColors.currentPalette.text)
+                    style = MaterialTheme.typography.titleLarge, color = GlobalColors.currentPalette.text
                 )
                 Divider(color = Color.Gray, thickness = 1.dp)
                 Text(
-                    text = stringResource(R1.string.invoice_pay_doc_desr), modifier = Modifier.background(color= GlobalColors.currentPalette.text),
+                    text = stringResource(R1.string.invoice_pay_doc_desr), color = GlobalColors.currentPalette.text,
                     style = MaterialTheme.typography.titleSmall
                 )
             }
