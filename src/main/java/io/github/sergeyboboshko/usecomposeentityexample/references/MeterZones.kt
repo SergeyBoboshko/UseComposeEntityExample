@@ -1,4 +1,4 @@
-package io.github.sergeyboboshko.usecomposeentityexample
+package io.github.sergeyboboshko.usecomposeentityexample.references
 
 import android.content.Context
 import android.os.Parcelable
@@ -50,6 +50,7 @@ import kotlin.reflect.KClass
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
+import io.github.sergeyboboshko.composeentity.references.base.TopReferenceViewModel
 
 //******************** Entity --------------------------
 @Parcelize
@@ -98,39 +99,41 @@ class RefMeterZoneRepository @Inject constructor(
 @HiltViewModel
 class RefMeterZoneViewModel @Inject constructor(
     repository: RefMeterZoneRepository
-) : SuperTopViewModel<RefMeterZonesEntity, RefMeterZonesEntityExt, RefMeterZonesDao, RefMeterZoneRepository>(
+) : TopReferenceViewModel<RefMeterZonesEntity, RefMeterZonesEntityExt, RefMeterZonesDao, RefMeterZoneRepository>(
     repository
 ) {
     // Мапа для опису полів
     override val fieldDescriptions = mutableMapOf<String, _BaseDescribeFormElement>()
 
     init {
-        Log.d("REF_MZ_INIT","REF_MZ_INIT")
-        //ініціалізцємо мітки
-        fieldDescriptions["ahtung"]=CustomField({
-            Text("Nane this zone as ugual named in around you like 'Night', 'Mid Day', 'Evetitg' e.c." +
-                    ". If different time-periods of the day have different cost of utility. You could add this zones to some meters later")
-        })
-        // Ініціалізуємо поля
-        fieldDescriptions["id"] =
-            CommonDescribeField(//Це не обовїязкові опції, списки можуть бути а можуть і ні. Тому робимо через Ані...
-                fieldName="id",
-                fieldType = FieldType.TEXT,
-                label = "ID",
-                placeholder = "Enter ID"
-            ) as _BaseDescribeFormElement
-        fieldDescriptions["id"]?.renderInAddEdit=false
-        fieldDescriptions["name"] =
-            CommonDescribeField(//Це не обовїязкові опції, списки можуть бути а можуть і ні. Тому робимо через Ані...
-                fieldName="name",
-                fieldType = FieldType.TEXT,
-                label = MyApplication1.appContext.getString(R.string.name)/*GlobalContext.context.getString(R.string.name)*/,
-                placeholder = "Enter name",
-                labelStyleList = TextStyle(color= Color.Red, fontSize = 16.sp, fontWeight = FontWeight.SemiBold),
-                labelStyleView = TextStyle(color= Color.Green, fontSize = 18.sp, fontWeight = FontWeight.SemiBold),
-                useForSort = true
-            ) as _BaseDescribeFormElement
-
+//        Log.d("REF_MZ_INIT","REF_MZ_INIT")
+//        //ініціалізцємо мітки
+//        fieldDescriptions["ahtung"]=CustomField({
+//            Text("Nane this zone as ugual named in around you like 'Night', 'Mid Day', 'Evetitg' e.c." +
+//                    ". If different time-periods of the day have different cost of utility. You could add this zones to some meters later")
+//        })
+//        // Ініціалізуємо поля
+//        fieldDescriptions["id"] =
+//            CommonDescribeField(//Це не обовїязкові опції, списки можуть бути а можуть і ні. Тому робимо через Ані...
+//                fieldName="id",
+//                fieldType = FieldType.TEXT,
+//                label = "ID",
+//                placeholder = "Enter ID"
+//            ) as _BaseDescribeFormElement
+//        fieldDescriptions["id"]?.renderInAddEdit=false
+//        fieldDescriptions["name"] =
+//            CommonDescribeField(//Це не обовїязкові опції, списки можуть бути а можуть і ні. Тому робимо через Ані...
+//                fieldName="name",
+//                fieldType = FieldType.TEXT,
+//                label = MyApplication1.appContext.getString(R.string.name)/*GlobalContext.context.getString(R.string.name)*/,
+//                placeholder = "Enter name",
+//                labelStyleList = TextStyle(color= Color.Red, fontSize = 16.sp, fontWeight = FontWeight.SemiBold),
+//                labelStyleView = TextStyle(color= Color.Green, fontSize = 18.sp, fontWeight = FontWeight.SemiBold),
+//                useForSort = true
+//            ) as _BaseDescribeFormElement
+        showStandartFields()
+        fieldDescriptions["name"]?.labelStyleList=TextStyle(color= Color.Red, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+        fieldDescriptions["name"]?.labelStyleView = TextStyle(color= Color.Green, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
 
         //*************** Validators *****************
         //** name
@@ -164,7 +167,6 @@ class RefMeterZonesUI() :
     override var viewModel = appGlobal.refMeterZoneViewModel as _BaseFormVM
     @Composable
     override fun MainScreenList() {
-        val viewModel=viewModel as RefMeterZoneViewModel
         GlobalContext.mainViewModel?.anyUI = this
         //NavigationTargets.current = "selfNav"
         RenderMainScreenList(viewModel as _SuperTopViewModel, "Meter zones  List",formList,this)
