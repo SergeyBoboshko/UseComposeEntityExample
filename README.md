@@ -30,7 +30,7 @@ The true value of Compose Entity lies not only in the speed of directory creatio
    git clone https://github.com/your-username/UseComposeEntityExample.git
    ```
 2. Open the project in Android Studio.
-3. In the file buid.gradle.kts comment frase implementation(project(":app")) and uncomment frase implementation("io.github.sergeyboboshko:composeentity:1.0.5") next change "1.0.5" to last newest version/ For get information about what the newest version of the library Compose Entity is see http://www.homeclub.top/?p=1036
+3. In the file buid.gradle.kts comment frase implementation(project(":app")) and uncomment frase implementation("io.github.sergeyboboshko:composeentity:1.0.5") next change "1.0.5" to last newest version. For geting information about what the newest version of the library Compose Entity is see http://www.homeclub.top/?p=1036
 4. Build and run the application on an emulator or physical device.
 
 ### Usage
