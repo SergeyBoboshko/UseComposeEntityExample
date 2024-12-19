@@ -67,6 +67,7 @@ dependencies {
     //implementation("io.github.sergeyboboshko:composeentity:1.0.5")//Consider to uncomment this string and set the actual version
     //***************************** ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ***********************************
 
+
     implementation("androidx.navigation:navigation-compose:2.8.3")
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
