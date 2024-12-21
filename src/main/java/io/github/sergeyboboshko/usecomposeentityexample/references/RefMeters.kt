@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
@@ -51,6 +52,8 @@ import io.github.sergeyboboshko.composeentity.daemons.CommonDescribeSelectField
 import io.github.sergeyboboshko.composeentity.daemons.FieldType
 import io.github.sergeyboboshko.composeentity.daemons.BaseFormVM
 import io.github.sergeyboboshko.composeentity.daemons.DetailsButtonsSet
+import io.github.sergeyboboshko.usecomposeentityexample.MyApplication1
+import io.github.sergeyboboshko.usecomposeentityexample.R
 
 //******************** Entity --------------------------
 @Parcelize
@@ -59,7 +62,8 @@ data class RefMetersEntity(
     @PrimaryKey(autoGenerate = true) override var id: Long,
     override var date: Long,
     override var name: String,
-    override var isMarkedForDeletion: Boolean
+    override var isMarkedForDeletion: Boolean,
+    var addressId: Long
 ) : CommonReferenceEntity(id, date, name, isMarkedForDeletion), Parcelable {
     override fun toString(): String {
         return "$id: $name"
@@ -69,9 +73,9 @@ data class RefMetersEntity(
 
 data class RefMetersEntityExt(
     @Embedded override var link: RefMetersEntity,
-//    @Relation(
-//        parentColumn = "zoneId", entityColumn = "id"
-//    ) var zone: RefMeterZonesEntity?
+    @Relation(
+        parentColumn = "addressId", entityColumn = "id"
+    ) var addressId: RefAddressesEntity?
 ) : CommonReferenceExtEntity<RefMetersEntity>(link)
 
 @Dao
@@ -103,7 +107,18 @@ class RefMetersViewModel @Inject constructor(
 
     init {
         showStandartFields()
-
+        //Others Fields
+        val addressField =
+            CommonDescribeSelectField<RefAddressesEntity, RefAddressesEntityExt, BaseFormVM<RefAddressesEntity, RefAddressesEntityExt>>(
+                fieldName = "addressId",
+                fieldType = FieldType.SELECT,
+                label = MyApplication1.appContext.getString(R.string.address_label),
+                placeholder = MyApplication1.appContext.getString(R.string.address_placeholder),
+                emptyEntity = RefAddressesEntity(0, 0, "", false, "","","",0,"",0),
+                viewModel = appGlobal.refAddressesModel
+            )
+        addressField.extName = "addressId"
+        fieldDescriptions[addressField.fieldName] = addressField as _BaseDescribeFormElement
         //*************** Validators *****************
         //** name
         formValidator.addFieldValidator("name", object : FieldValidator {
@@ -138,7 +153,7 @@ class RefMetersUI() :
             isNew = isNew,
             caption1 = caption,
             ReferenceIconButtonsSet(viewModel as MyViewModel,haveTablePart = true),
-            emptyEntity = RefMetersEntity(0, 0, "", false)
+            emptyEntity = RefMetersEntity(0, 0, "", false,0)
         )
     }
 

@@ -7,4 +7,23 @@
     <string name="documents">Документи</string>
     <string name="invoice_pay_doc">Заборгованість</string>
     <string name="invoice_pay_doc_desr">Потребують оплати</string>
+
+    <string name="zip_code_label">Поштовий індекс</string>
+    <string name="zip_code_placeholder">Введіть поштовий індекс тут</string>
+
+    <string name="city_label">Місто</string>
+    <string name="city_placeholder">Введіть назву міста тут</string>
+
+    <string name="address_label">Адреса</string>
+    <string name="address_placeholder">Введіть адресу тут</string>
+
+    <string name="houseNumber_label">Номер будинку</string>
+    <string name="houseNumber_placeholder">Введіть номер будинку тут</string>
+
+    <string name="houseBlock_label">Блок будинку</string>
+    <string name="houseBlock_placeholder">Введіть блок будинку тут</string>
+
+    <string name="apartmentNumber_label">Номер квартири</string>
+    <string name="apartmentNumber_placeholder">Введіть номер квартири тут</string>
+
 </resources>

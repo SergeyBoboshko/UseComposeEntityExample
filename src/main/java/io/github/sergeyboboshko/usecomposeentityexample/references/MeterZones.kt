@@ -155,7 +155,6 @@ class RefMeterZoneViewModel @Inject constructor(
         //************************************************************
 
         IsInitialized=true
-
     }
 }
 

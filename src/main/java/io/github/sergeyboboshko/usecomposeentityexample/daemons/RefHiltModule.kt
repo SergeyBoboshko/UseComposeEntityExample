@@ -4,6 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.github.sergeyboboshko.usecomposeentityexample.references.RefAddressesDao
+import io.github.sergeyboboshko.usecomposeentityexample.references.RefAddressesRepository
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefMeterZoneRepository
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefMeterZonesDao
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefMetersDao
@@ -31,5 +33,16 @@ object RepositoryModule {
     @Provides
     fun provideRefMetersRepository(dao: RefMetersDao): RefMetersRepository {
         return RefMetersRepository(dao)
+    }
+
+    //--------------------  RefAddresses  ------------------------
+    @Provides
+    fun provideRefAddressesDao(database: AppDatabase): RefAddressesDao {
+        return database.refAddressesDao()
+    }
+
+    @Provides
+    fun provideRefAddressesRepository(dao: RefAddressesDao): RefAddressesRepository {
+        return RefAddressesRepository(dao)
     }
 }

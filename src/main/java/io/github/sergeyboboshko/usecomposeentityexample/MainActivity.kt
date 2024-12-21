@@ -37,6 +37,7 @@ import io.github.sergeyboboshko.composeentity.daemons.screens.BottomCommonBar
 import io.github.sergeyboboshko.usecomposeentityexample.daemons.appGlobal
 import io.github.sergeyboboshko.usecomposeentityexample.documents.DocList
 import io.github.sergeyboboshko.usecomposeentityexample.documents.DocPaymentsInvoiceViewModel
+import io.github.sergeyboboshko.usecomposeentityexample.references.RefAddressesViewModel
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefList
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefMeterZoneViewModel
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefMetersDetailsViewModel
@@ -53,7 +54,7 @@ class MainActivity : ComponentActivity() {
 
     val refMetersViewModel:RefMetersViewModel by viewModels()
     val docPaymentsInvoiceViewModel:DocPaymentsInvoiceViewModel by viewModels()
-
+    val refAddressesViewModel:RefAddressesViewModel  by viewModels()
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,10 +62,12 @@ class MainActivity : ComponentActivity() {
         GlobalContext.mainViewModel=viewModel
         appGlobal.refMeterZoneViewModel=refMeterZoneViewModel
         appGlobal.refMetersDetailsViewModel=refMetersDetailsViewModel
-
+        appGlobal.refAddressesModel=refAddressesViewModel
         appGlobal.refMetersViewModel=refMetersViewModel
         appGlobal.docPaymentsInvoiceViewModel=docPaymentsInvoiceViewModel
         appGlobal.refMetersDetailsViewModel=refMetersDetailsViewModel
+
+
         enableEdgeToEdge()
         setContent {
             InitComposableEntityVariables()

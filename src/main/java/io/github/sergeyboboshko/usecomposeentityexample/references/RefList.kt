@@ -76,5 +76,24 @@ fun RefList (){
                 )
             }
         }
+        StyledButton(onClick = {
+            //GlobalContext.mainViewModel?.anyUI = RefMeterZonesUI(GlobalContext.context) as BaseUI
+            GlobalContext.mainViewModel?.navController?.navigate(
+                SelfNav.getMainScreen(),
+                RefAddressesUI()
+            )
+        }) {
+            Column/*(modifier = Modifier.width(IntrinsicSize.Max)) */{
+                Text(
+                    "Addresses",
+                    style = MaterialTheme.typography.titleLarge, color = GlobalColors.currentPalette.text
+                )
+                Divider(color = Color.Gray, thickness = 1.dp)
+                Text(
+                    text = "The your addresses have tracking",
+                    style = MaterialTheme.typography.titleSmall, color = GlobalColors.currentPalette.text
+                )
+            }
+        }
     }
 }
