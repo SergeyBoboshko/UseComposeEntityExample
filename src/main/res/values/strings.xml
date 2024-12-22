@@ -25,4 +25,7 @@
     <string name="apartmentNumber_label">Apartment Number</string>
     <string name="apartmentNumber_placeholder">Input apartment number here</string>
 
+    <string name="addresses_list">Addresses List</string>
+    <string name="addresses_reference">The Addresses Reference</string>
+    <string name="field_name_not_empty">Field Name mustn\'t be empty</string>
 </resources>

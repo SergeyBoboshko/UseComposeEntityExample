@@ -26,4 +26,7 @@
     <string name="apartmentNumber_label">Номер квартири</string>
     <string name="apartmentNumber_placeholder">Введіть номер квартири тут</string>
 
+    <string name="addresses_list">Список адрес</string>
+    <string name="addresses_reference">Довідник адрес</string>
+    <string name="field_name_not_empty">Поле імені не повинно бути порожнім</string>
 </resources>

@@ -1,5 +1,6 @@
 package io.github.sergeyboboshko.usecomposeentityexample
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,6 +14,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -44,6 +46,8 @@ import io.github.sergeyboboshko.usecomposeentityexample.references.RefMetersDeta
 import io.github.sergeyboboshko.usecomposeentityexample.screens.ScaffoldTopCommon
 import io.github.sergeyboboshko.usecomposeentityexample.ui.theme.UseComposeEntityTheme
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefMetersViewModel
+import java.util.Locale
+import io.github.sergeyboboshko.composeentity.daemons.LocaleHelper
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -59,6 +63,8 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //val updatedContext = LocaleHelper.setLocale(this, "en") // Змінюємо локаль
+
         GlobalContext.mainViewModel=viewModel
         appGlobal.refMeterZoneViewModel=refMeterZoneViewModel
         appGlobal.refMetersDetailsViewModel=refMetersDetailsViewModel
@@ -70,6 +76,7 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
+
             InitComposableEntityVariables()
             InitComposeEntityColors()
             var navController = rememberNavController()
@@ -120,4 +127,10 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+ //   override fun attachBaseContext(newBase: Context) {
+//        val updatedContext = LocaleHelper.setLocale(newBase, "en") // Встановлення локалі
+//        applyOverrideConfiguration(updatedContext.resources.configuration)
+//        super.attachBaseContext(updatedContext)
+ //   }
 }
