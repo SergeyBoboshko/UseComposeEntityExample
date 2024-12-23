@@ -10,16 +10,12 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import io.github.sergeyboboshko.usecomposeentityexample.daemons.migrations.MIGRATION_2_3
-import io.github.sergeyboboshko.usecomposeentityexample.daemons.migrations.MIGRATION_3_4
-import io.github.sergeyboboshko.usecomposeentityexample.daemons.migrations.MIGRATION_4_5
-import io.github.sergeyboboshko.usecomposeentityexample.daemons.migrations.MIGRATION_5_6
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
-//.fallbackToDestructiveMigration() - убрали бо пробуємо створювати міграції без втрати даних
+
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext appContext: Context): AppDatabase {
@@ -28,10 +24,7 @@ object DatabaseModule {
             AppDatabase::class.java,
             "home-pay-manager"
         )
-            .addMigrations(MIGRATION_2_3)
-            .addMigrations(MIGRATION_3_4)
-            .addMigrations(MIGRATION_4_5)
-            .addMigrations(MIGRATION_5_6)
+            .fallbackToDestructiveMigration()
             .addCallback(object : RoomDatabase.Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
@@ -41,12 +34,8 @@ object DatabaseModule {
                 override fun onOpen(db: SupportSQLiteDatabase) {
                     super.onOpen(db)
                     Log.d("MainViewModel", "Database has been opened")
-                    val currentVersion = db.version
-                    Log.d("DB_VERSION", "Database version = $currentVersion")
                 }
             })
             .build()
     }
 }
-
-//http://www.homeclub.top/?p=1063

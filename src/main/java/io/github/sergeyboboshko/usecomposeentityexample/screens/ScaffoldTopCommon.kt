@@ -17,7 +17,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import io.github.sergeyboboshko.composeentity.daemons.*
-import io.github.sergeyboboshko.composeentity.daemons.localization.LocalizationManager
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,12 +53,12 @@ fun ScaffoldTopCommon() {
                         showEscapeDialog = false
                     },
                     onConfirmation = {
-                        navController?.popBackStack(mainCustomStack)
+                        navController?.popBackStack()
                         viewModel?.clearAllOfSelectedLists()
                         showEscapeDialog = false
                     },
-                    dialogTitle = LocalizationManager.getTranslation("escape_screen"),
-                    dialogText = LocalizationManager.getTranslation("escape_message"),
+                    dialogTitle = "Escape Screen",
+                    dialogText = "Are your sure to escape this screen? All of the changed data will de lost!",
                     icon = Icons.Default.Delete,
                     applicationContext = GlobalContext.context,
                     id = 1, viewModel = viewModel, navController = navController
