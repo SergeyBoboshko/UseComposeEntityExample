@@ -1,5 +1,6 @@
 package io.github.sergeyboboshko.usecomposeentityexample
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,6 +14,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,33 +27,63 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.github.sergeyboboshko.composeentity.daemons.MainViewModel
 import io.github.sergeyboboshko.composeentity.references.base.CommonReferenceEntity
 import io.github.sergeyboboshko.usecomposeentityexample.screens.MainPage
-import io.github.sergeyboboshko.usecomposeentityexample.ui.theme.ComposeEntityTheme
+
 import kotlin.getValue
 import io.github.sergeyboboshko.composeentity.daemons.GlobalContext
 import io.github.sergeyboboshko.composeentity.daemons.GlobalState
+import io.github.sergeyboboshko.composeentity.daemons.InitComposableEntityVariables
+import io.github.sergeyboboshko.composeentity.daemons.InitComposeEntityColors
 import io.github.sergeyboboshko.composeentity.daemons.SelfNavigation
+import io.github.sergeyboboshko.composeentity.daemons.localization.LocalizationManager
 import io.github.sergeyboboshko.composeentity.daemons.screens.BottomCommonBar
 import io.github.sergeyboboshko.usecomposeentityexample.daemons.appGlobal
+import io.github.sergeyboboshko.usecomposeentityexample.documents.DocList
+import io.github.sergeyboboshko.usecomposeentityexample.documents.DocPaymentsInvoiceViewModel
+import io.github.sergeyboboshko.usecomposeentityexample.references.RefAddressesViewModel
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefList
+import io.github.sergeyboboshko.usecomposeentityexample.references.RefMeterZoneViewModel
+import io.github.sergeyboboshko.usecomposeentityexample.references.RefMetersDetailsViewModel
 import io.github.sergeyboboshko.usecomposeentityexample.screens.ScaffoldTopCommon
+import io.github.sergeyboboshko.usecomposeentityexample.ui.theme.UseComposeEntityTheme
+import io.github.sergeyboboshko.usecomposeentityexample.references.RefMetersViewModel
+import java.util.Locale
+import io.github.sergeyboboshko.composeentity.daemons.LocaleHelper
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     val viewModel: MainViewModel by viewModels()
     val refMeterZoneViewModel:RefMeterZoneViewModel by viewModels()
+    val refMetersDetailsViewModel:RefMetersDetailsViewModel by viewModels()
+
+    val refMetersViewModel:RefMetersViewModel by viewModels()
+    val docPaymentsInvoiceViewModel:DocPaymentsInvoiceViewModel by viewModels()
+    val refAddressesViewModel:RefAddressesViewModel  by viewModels()
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //val updatedContext = LocaleHelper.setLocale(this, "en") // Змінюємо локаль
+
         GlobalContext.mainViewModel=viewModel
         appGlobal.refMeterZoneViewModel=refMeterZoneViewModel
+        appGlobal.refMetersDetailsViewModel=refMetersDetailsViewModel
+        appGlobal.refAddressesModel=refAddressesViewModel
+        appGlobal.refMetersViewModel=refMetersViewModel
+        appGlobal.docPaymentsInvoiceViewModel=docPaymentsInvoiceViewModel
+        appGlobal.refMetersDetailsViewModel=refMetersDetailsViewModel
+
+
         enableEdgeToEdge()
         setContent {
+
+            InitComposableEntityVariables()
+            InitComposeEntityColors()
             var navController = rememberNavController()
             GlobalContext.mainViewModel?.navController = navController
             GlobalContext.context=this
-            ComposeEntityTheme() {
+//            LocalizationManager.currentLanguageCode="en"
+            UseComposeEntityTheme() {
                 Scaffold(modifier = Modifier.fillMaxSize(),
                     topBar={
                         ScaffoldTopCommon()
@@ -60,8 +92,7 @@ class MainActivity : ComponentActivity() {
                     Surface(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(innerPadding),
-                        color = Color.White
+                            .padding(innerPadding)
                     ) {
                         NavHost(navController = navController, startDestination = "home") {
                             composable("home") {
@@ -76,46 +107,7 @@ class MainActivity : ComponentActivity() {
                                 val form =
                                     navController.currentBackStackEntry?.arguments?.getString("form")
                                 SelfNavigation(form?:"")
-//                                //var currentUI = viewModel.anyUI
-//                                var currentUI = mainCustomStack.peek()
-//                                Log.d("TURN_SCREEN","mainCustomStack.elements.size = ${mainCustomStack.size()}")
-//                                if (currentUI!=null) {
-//                                    when (form) {
-//                                        "ADD" -> {
-//                                            GlobalState.hideAllBottomBarButtons()
-//                                            currentUI?.AddEditScreen(true, 0)
-//                                        }
-//
-//                                        "EDIT" -> {
-//                                            GlobalState.hideAllBottomBarButtons()
-//                                            currentUI?.AddEditScreen(false, 0)
-//                                        }
-//
-//                                        "MAIN_SCREEN" -> {
-//                                            GlobalState.showAllBottomBarButtons()
-//                                            Log.d("NAV","IN Main Activity currentUI= $currentUI")
-//                                            currentUI?.MainScreenList()
-//                                        }
-//                                        "VIEW_SCREEN" -> {
-//                                            GlobalState.showAllBottomBarButtons()
-//                                            currentUI?.ViewScreen(0L)
-//                                        }
-//
-//                                        "DETAILS_SCREEN" -> {
-//                                            GlobalState.showAllBottomBarButtons()
-//                                            currentUI?.ViewDetailsScreen(0L)
-//                                        }
-//
-//                                        "MOVIES_SCREEN" -> {
-//                                            GlobalState.hideAllBottomBarButtons()
-//                                            (currentUI as DocUI).showMovements()
-//                                        }
-//                                    }
-//                                }
-//                                else{
-//                                    Text("No UIs in main custom stack")
-//                                }
-                            }
+                           }
                             // LISTS
                             ///******************* REferences list *******************
                             composable(route="references_menu_screen"){
@@ -123,10 +115,22 @@ class MainActivity : ComponentActivity() {
                                 GlobalState.hideAllBottomBarButtons()
                                 RefList()
                             }
+                            ///******************* REferences list *******************
+                            composable(route="documents_menu_screen"){
+                                //NavigationTargets.postpone()
+                                GlobalState.hideAllBottomBarButtons()
+                                DocList()
+                            }
                         }
                     }
                 }
             }
         }
     }
+
+ //   override fun attachBaseContext(newBase: Context) {
+//        val updatedContext = LocaleHelper.setLocale(newBase, "en") // Встановлення локалі
+//        applyOverrideConfiguration(updatedContext.resources.configuration)
+//        super.attachBaseContext(updatedContext)
+ //   }
 }

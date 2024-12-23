@@ -21,37 +21,77 @@ import io.github.sergeyboboshko.composeentity.daemons.GlobalContext
 import io.github.sergeyboboshko.composeentity.daemons.SelfNav
 import io.github.sergeyboboshko.composeentity.daemons.mainCustomStack
 import io.github.sergeyboboshko.composeentity.references.base.*
-import io.github.sergeyboboshko.usecomposeentityexample.RefMeterZonesUI
+import io.github.sergeyboboshko.usecomposeentityexample.references.RefMeterZonesUI
 
 import androidx.compose.material3.Divider
+import io.github.sergeyboboshko.composeentity.daemons.GlobalColors
+import io.github.sergeyboboshko.composeentity.daemons.localization.LocalizationManager
 import io.github.sergeyboboshko.composeentity.daemons.navigate
 
 @Composable
 fun RefList (){
     Column(Modifier.padding(all = 4.dp)) {
         Text(
-            text = "References",
+            text = LocalizationManager.getTranslation("references"),
             modifier = Modifier
                 .fillMaxWidth()
-                .background(colorResource(id = R.color.caption)),
+                .background(GlobalColors.currentPalette.captionFonColor),
             fontSize = 20.sp
         )
         StyledButton(onClick = {
-            GlobalContext.mainViewModel?.anyUI = RefMeterZonesUI(GlobalContext.context) as BaseUI
+            //GlobalContext.mainViewModel?.anyUI = RefMeterZonesUI(GlobalContext.context) as BaseUI
             GlobalContext.mainViewModel?.navController?.navigate(
-                SelfNav.getMainScreen(), mainCustomStack,
-                RefMeterZonesUI(GlobalContext.context)
+                SelfNav.getMainScreen(),
+                RefMeterZonesUI()
             )
         }) {
             Column/*(modifier = Modifier.width(IntrinsicSize.Max)) */{
                 Text(
                     "Meter Zones",
-                    style = MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.titleLarge, color = GlobalColors.currentPalette.text
                 )
                 Divider(color = Color.Gray, thickness = 1.dp)
                 Text(
                     text = "Zones like day/night",
-                    style = MaterialTheme.typography.titleSmall
+                    style = MaterialTheme.typography.titleSmall, color = GlobalColors.currentPalette.text
+                )
+            }
+        }
+        StyledButton(onClick = {
+            //GlobalContext.mainViewModel?.anyUI = RefMeterZonesUI(GlobalContext.context) as BaseUI
+            GlobalContext.mainViewModel?.navController?.navigate(
+                SelfNav.getMainScreen(),
+                RefMetersUI()
+            )
+        }) {
+            Column/*(modifier = Modifier.width(IntrinsicSize.Max)) */{
+                Text(
+                    "Meters",
+                    style = MaterialTheme.typography.titleLarge, color = GlobalColors.currentPalette.text
+                )
+                Divider(color = Color.Gray, thickness = 1.dp)
+                Text(
+                    text = "Meters (of the Electricity meters e.t.c)",
+                    style = MaterialTheme.typography.titleSmall, color = GlobalColors.currentPalette.text
+                )
+            }
+        }
+        StyledButton(onClick = {
+            //GlobalContext.mainViewModel?.anyUI = RefMeterZonesUI(GlobalContext.context) as BaseUI
+            GlobalContext.mainViewModel?.navController?.navigate(
+                SelfNav.getMainScreen(),
+                RefAddressesUI()
+            )
+        }) {
+            Column/*(modifier = Modifier.width(IntrinsicSize.Max)) */{
+                Text(
+                    "Addresses",
+                    style = MaterialTheme.typography.titleLarge, color = GlobalColors.currentPalette.text
+                )
+                Divider(color = Color.Gray, thickness = 1.dp)
+                Text(
+                    text = "The your addresses have tracking",
+                    style = MaterialTheme.typography.titleSmall, color = GlobalColors.currentPalette.text
                 )
             }
         }

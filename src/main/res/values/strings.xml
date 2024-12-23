@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">Use ComposeEntity Example</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="input_description">Type description here</string>
+    <string name="documents">Documents</string>
+    <string name="invoice_pay_doc">Invoice Payment Documents</string>
+    <string name="invoice_pay_doc_desr">Payments you get</string>
+
+    <string name="zip_code_label">Zip Code</string>
+    <string name="zip_code_placeholder">Input zip code here</string>
+
+    <string name="city_label">City</string>
+    <string name="city_placeholder">Input city name here</string>
+
+    <string name="address_label">Address</string>
+    <string name="address_placeholder">Input address here</string>
+
+    <string name="houseNumber_label">House Number</string>
+    <string name="houseNumber_placeholder">Input house number here</string>
+
+    <string name="houseBlock_label">House Block</string>
+    <string name="houseBlock_placeholder">Input house block here</string>
+
+    <string name="apartmentNumber_label">Apartment Number</string>
+    <string name="apartmentNumber_placeholder">Input apartment number here</string>
+
+    <string name="addresses_list">Addresses List</string>
+    <string name="addresses_reference">The Addresses Reference</string>
+    <string name="field_name_not_empty">Field Name mustn\'t be empty</string>
 </resources>

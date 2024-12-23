@@ -40,6 +40,9 @@ android {
     buildFeatures {
         compose = true
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.15"
+    }
 }
 
 dependencies {
@@ -56,7 +59,15 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.dagger.hilt.compiler)
 
-    implementation(project(":app"))
+    //***************************** ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ***********************************
+    implementation(project(":app"))//Be shure co comment this string and uncomment and set up the newest version
+    //Warning! In your projects change implementation(project(":app")) to
+    //implementation("io.github.sergeyboboshko:composeentity:x.x.x") where x.x.x is last version of the Compose Entity Library
+    //The last version you could find on the Maven https://central.sonatype.com/ or oficial Compose Entity blog http://www.homeclub.top/?p=1036
+    //implementation("io.github.sergeyboboshko:composeentity:1.0.5")//Consider to uncomment this string and set the actual version
+    //***************************** ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ***********************************
+
+
     implementation("androidx.navigation:navigation-compose:2.8.3")
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
