@@ -2,6 +2,7 @@ package io.github.sergeyboboshko.usecomposeentityexample.references
 
 import android.os.Parcelable
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -11,11 +12,16 @@ import androidx.compose.ui.unit.sp
 import androidx.room.Dao
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import androidx.room.RawQuery
+import androidx.room.Relation
 import androidx.sqlite.db.SupportSQLiteQuery
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.github.sergeyboboshko.composeentity.daemons.BaseFormVM
 import io.github.sergeyboboshko.composeentity.daemons.CommonDescribeField
+import io.github.sergeyboboshko.composeentity.daemons.CommonDescribeSelectField
+import io.github.sergeyboboshko.composeentity.daemons.DetailsButtonsSet
 import io.github.sergeyboboshko.composeentity.daemons.FieldType
 import io.github.sergeyboboshko.composeentity.daemons.FieldValidator
 import io.github.sergeyboboshko.composeentity.daemons.GlobalContext
@@ -28,6 +34,10 @@ import io.github.sergeyboboshko.composeentity.daemons.SuperTopRepository
 import io.github.sergeyboboshko.composeentity.daemons._BaseDescribeFormElement
 import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.daemons._SuperTopViewModel
+import io.github.sergeyboboshko.composeentity.details.base.CommonDetailsEntity
+import io.github.sergeyboboshko.composeentity.details.base.CommonDetailsExtEntity
+import io.github.sergeyboboshko.composeentity.details.base.DetailsRepository
+import io.github.sergeyboboshko.composeentity.details.base.DetailsViewModel
 import io.github.sergeyboboshko.composeentity.references.base.CommonReferenceEntity
 import io.github.sergeyboboshko.composeentity.references.base.CommonReferenceExtEntity
 import io.github.sergeyboboshko.composeentity.references.base.RefUI
@@ -40,6 +50,8 @@ import javax.inject.Inject
 import kotlin.reflect.KClass
 import io.github.sergeyboboshko.usecomposeentityexample.R
 import io.github.sergeyboboshko.usecomposeentityexample.daemons.appGlobal
+import io.github.sergeyboboshko.usecomposeentityexample.details.RefAddressDetailsUI
+import io.github.sergeyboboshko.usecomposeentityexample.details.RefAddressDetailsViewModel
 
 //******************** Entity --------------------------
 @Parcelize
@@ -111,7 +123,10 @@ class RefAddressesViewModel @Inject constructor(
                 fieldName="city",
                 fieldType = FieldType.TEXT,
                 label = MyApplication1.appContext.getString(R.string.city_label),
-                placeholder = MyApplication1.appContext.getString(R.string.city_placeholder)
+                placeholder = MyApplication1.appContext.getString(R.string.city_placeholder),
+                onChange = {sity->
+                    Log.d("ON_CHANGE_TEST","On change city = $sity")
+                }
             ) as _BaseDescribeFormElement
         //** city
         fieldDescriptions["address"] =
@@ -178,13 +193,17 @@ class RefAddressesUI() :
 
     @Composable
     override fun ViewScreen(id: Long) {
-        //val viewModel: RefMeterZoneViewModel = GlobalContext.refMeterZoneViewModel
-        RenderViewScreen(viewModel as MyViewModel,"The Adress",formDetail)
+        PerfectViewScreen(id=id,
+            caption = "Utilities",
+            true,false)
     }
 
     @Composable
     override fun ViewDetailsScreen(parentid: Long) {
-        TODO("Not yet implemented")
+        val _viewModel:RefAddressDetailsViewModel = appGlobal.refAddressDetailsViewModel
+        _viewModel.setHatID(parentid,"")
+        val ui = RefAddressDetailsUI()
+        ui.MainScreenList()
     }
 
     override fun saveReferense() {

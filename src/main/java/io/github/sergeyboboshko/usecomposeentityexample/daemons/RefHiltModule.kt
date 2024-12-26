@@ -10,6 +10,8 @@ import io.github.sergeyboboshko.usecomposeentityexample.references.RefMeterZoneR
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefMeterZonesDao
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefMetersDao
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefMetersRepository
+import io.github.sergeyboboshko.usecomposeentityexample.references.RefUtilitiesDao
+import io.github.sergeyboboshko.usecomposeentityexample.references.RefUtilitiesRepository
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -44,5 +46,15 @@ object RepositoryModule {
     @Provides
     fun provideRefAddressesRepository(dao: RefAddressesDao): RefAddressesRepository {
         return RefAddressesRepository(dao)
+    }
+    //--------------------  RefAddresses  ------------------------
+    @Provides
+    fun provideRefUtilitiesDao(database: AppDatabase): RefUtilitiesDao {
+        return database.refUtilitiesDao()
+    }
+
+    @Provides
+    fun provideRefUtilitiesRepository(dao: RefUtilitiesDao): RefUtilitiesRepository {
+        return RefUtilitiesRepository(dao)
     }
 }

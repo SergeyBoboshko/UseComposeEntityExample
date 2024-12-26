@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.github.sergeyboboshko.usecomposeentityexample.documents.DocPaymentsInvoiceDao
 import io.github.sergeyboboshko.usecomposeentityexample.documents.DocPaymentsExpenseRepository
+import io.github.sergeyboboshko.usecomposeentityexample.details.RefAddressDetailsRepository
+import io.github.sergeyboboshko.usecomposeentityexample.details.RefAddressDetailsDao
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefMetersDetailsDao
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefMetersDetailsRepository
 
@@ -22,5 +24,16 @@ object DetailsModule {
     @Provides
     fun provideRefMetersDetailsEntityRepository(dao: RefMetersDetailsDao): RefMetersDetailsRepository {
         return RefMetersDetailsRepository(dao)
+    }
+
+    //--------------------  RefMeterZonesDao  ------------------------
+    @Provides
+    fun provideRefAdressDetailsEntityDao(database: AppDatabase): RefAddressDetailsDao {
+        return database.refAddressDetailsDao()
+    }
+
+    @Provides
+    fun provideAdressDetailsEntityRepository(dao: RefAddressDetailsDao): RefAddressDetailsRepository {
+        return RefAddressDetailsRepository(dao)
     }
 }

@@ -48,6 +48,8 @@ import io.github.sergeyboboshko.usecomposeentityexample.ui.theme.UseComposeEntit
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefMetersViewModel
 import java.util.Locale
 import io.github.sergeyboboshko.composeentity.daemons.LocaleHelper
+import io.github.sergeyboboshko.usecomposeentityexample.details.RefAddressDetailsViewModel
+import io.github.sergeyboboshko.usecomposeentityexample.references.RefUtilitiesViewModel
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -58,6 +60,8 @@ class MainActivity : ComponentActivity() {
 
     val refMetersViewModel:RefMetersViewModel by viewModels()
     val docPaymentsInvoiceViewModel:DocPaymentsInvoiceViewModel by viewModels()
+    val refUtilitiesViewModel:RefUtilitiesViewModel  by viewModels()
+    val refAddressDetailsViewModel:RefAddressDetailsViewModel  by viewModels()
     val refAddressesViewModel:RefAddressesViewModel  by viewModels()
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -69,7 +73,12 @@ class MainActivity : ComponentActivity() {
         appGlobal.refMeterZoneViewModel=refMeterZoneViewModel
         appGlobal.refMetersDetailsViewModel=refMetersDetailsViewModel
         appGlobal.refAddressesModel=refAddressesViewModel
+        appGlobal.refUtilitiesViewModel=refUtilitiesViewModel
         appGlobal.refMetersViewModel=refMetersViewModel
+
+        appGlobal.refAddressDetailsViewModel=refAddressDetailsViewModel
+
+
         appGlobal.docPaymentsInvoiceViewModel=docPaymentsInvoiceViewModel
         appGlobal.refMetersDetailsViewModel=refMetersDetailsViewModel
 

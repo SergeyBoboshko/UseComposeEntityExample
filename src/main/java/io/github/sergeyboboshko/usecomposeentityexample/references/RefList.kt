@@ -95,5 +95,25 @@ fun RefList (){
                 )
             }
         }
+
+        StyledButton(onClick = {
+            //GlobalContext.mainViewModel?.anyUI = RefMeterZonesUI(GlobalContext.context) as BaseUI
+            GlobalContext.mainViewModel?.navController?.navigate(
+                SelfNav.getMainScreen(),
+                RefUtilitiesUI()
+            )
+        }) {
+            Column/*(modifier = Modifier.width(IntrinsicSize.Max)) */{
+                Text(
+                    "Utilities",
+                    style = MaterialTheme.typography.titleLarge, color = GlobalColors.currentPalette.text
+                )
+                Divider(color = Color.Gray, thickness = 1.dp)
+                Text(
+                    text = "The your utilities' payment have tracking",
+                    style = MaterialTheme.typography.titleSmall, color = GlobalColors.currentPalette.text
+                )
+            }
+        }
     }
 }

@@ -159,7 +159,7 @@ class DocPaymentsInvoiceUI() : DocUI() {
     @Composable
     override fun ViewScreen(id: Long) {
         var caption = "Expense Payment Document"
-        PerfectViewScreen(id = id,caption,true)
+        PerfectViewScreen(id = id,caption,true,false)
 
     }
 

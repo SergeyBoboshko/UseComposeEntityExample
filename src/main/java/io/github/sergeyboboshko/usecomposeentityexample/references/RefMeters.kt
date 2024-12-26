@@ -161,7 +161,7 @@ class RefMetersUI() :
     override fun ViewScreen(id: Long) {
         PerfectViewScreen(id=id,
             caption = "Meter Zones",
-            true)
+            true,false)
 //        Column {
 //            RenderViewScreen(viewModel as MyViewModel, "The Metes Reference", formDetail)
 //            val ref = viewModel.anyItem

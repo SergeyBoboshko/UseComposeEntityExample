@@ -14,6 +14,8 @@ import io.github.sergeyboboshko.usecomposeentityexample.daemons.migrations.MIGRA
 import io.github.sergeyboboshko.usecomposeentityexample.daemons.migrations.MIGRATION_3_4
 import io.github.sergeyboboshko.usecomposeentityexample.daemons.migrations.MIGRATION_4_5
 import io.github.sergeyboboshko.usecomposeentityexample.daemons.migrations.MIGRATION_5_6
+import io.github.sergeyboboshko.usecomposeentityexample.daemons.migrations.MIGRATION_6_7
+import io.github.sergeyboboshko.usecomposeentityexample.daemons.migrations.MIGRATION_7_8
 import javax.inject.Singleton
 
 @Module
@@ -32,6 +34,8 @@ object DatabaseModule {
             .addMigrations(MIGRATION_3_4)
             .addMigrations(MIGRATION_4_5)
             .addMigrations(MIGRATION_5_6)
+            .addMigrations(MIGRATION_6_7)
+            .addMigrations(MIGRATION_7_8)
             .addCallback(object : RoomDatabase.Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
