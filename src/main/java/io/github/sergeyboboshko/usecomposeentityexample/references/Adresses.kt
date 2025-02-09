@@ -23,6 +23,7 @@ import io.github.sergeyboboshko.composeentity.daemons.CommonDescribeField
 import io.github.sergeyboboshko.composeentity.daemons.CommonDescribeSelectField
 import io.github.sergeyboboshko.composeentity.daemons.DetailsButtonsSet
 import io.github.sergeyboboshko.composeentity.daemons.FieldType
+import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.daemons.FieldValidator
 import io.github.sergeyboboshko.composeentity.daemons.GlobalContext
 import io.github.sergeyboboshko.composeentity.daemons.MyViewModel
@@ -43,6 +44,9 @@ import io.github.sergeyboboshko.composeentity.references.base.CommonReferenceExt
 import io.github.sergeyboboshko.composeentity.references.base.RefUI
 import io.github.sergeyboboshko.composeentity.references.base.ReferenceIconButtonsSet
 import io.github.sergeyboboshko.composeentity.references.base.TopReferenceViewModel
+import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
+import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
+import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
 import io.github.sergeyboboshko.usecomposeentityexample.MyApplication1
 import kotlinx.android.parcel.Parcelize
 import kotlinx.coroutines.flow.Flow
@@ -50,17 +54,21 @@ import javax.inject.Inject
 import kotlin.reflect.KClass
 import io.github.sergeyboboshko.usecomposeentityexample.R
 import io.github.sergeyboboshko.usecomposeentityexample.daemons.appGlobal
+import io.github.sergeyboboshko.usecomposeentityexample.details.RefAddressDetailsEntity
 import io.github.sergeyboboshko.usecomposeentityexample.details.RefAddressDetailsUI
 import io.github.sergeyboboshko.usecomposeentityexample.details.RefAddressDetailsViewModel
 
 //******************** Entity --------------------------
+@ObjectGeneratorCE(type = GeneratorType.Reference)
 @Parcelize
 @Entity(tableName = "ref_adresses")
 data class RefAddressesEntity(
     @PrimaryKey(autoGenerate = true) override var id: Long,
+    @FormFieldCE(render=true, label = "@@date_label", placeHolder = "@@date_placeholder",type = FieldTypeHelper.DATE_TIME)
     override var date: Long,
     override var name: String,
     override var isMarkedForDeletion: Boolean,
+    @FormFieldCE(render=true, label = "Zipppp", type = FieldTypeHelper.TEXT)
     var zipCode: String,
     var city:String,
     var address:String,
@@ -204,6 +212,10 @@ class RefAddressesUI() :
         _viewModel.setHatID(parentid,"")
         val ui = RefAddressDetailsUI()
         ui.MainScreenList()
+    }
+@Composable
+    override fun initMe() {
+        TODO("Not yet implemented")
     }
 
     override fun saveReferense() {

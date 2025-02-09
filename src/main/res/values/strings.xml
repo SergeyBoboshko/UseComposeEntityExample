@@ -28,4 +28,8 @@
     <string name="addresses_list">Addresses List</string>
     <string name="addresses_reference">The Addresses Reference</string>
     <string name="field_name_not_empty">Field Name mustn\'t be empty</string>
+    <string name="date_label">Date</string>
+    <string name="date_placeholder">Enter Date</string>
+    <string name="zipCode_label">Zip code</string>
+    <string name="zipCode_placeholder">Enter Zip code</string>
 </resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="date_label">Date</string>
+    <string name="date_placeholder">Enter Date</string>
+    <string name="zipCode_label">Zip code</string>
+    <string name="zipCode_placeholder">Enter Zip code</string>
+</resources>

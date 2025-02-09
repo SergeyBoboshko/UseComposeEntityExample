@@ -10,6 +10,8 @@ import io.github.sergeyboboshko.usecomposeentityexample.references.RefAddressesD
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefAddressesEntity
 import io.github.sergeyboboshko.usecomposeentityexample.details.RefAddressDetailsDao
 import io.github.sergeyboboshko.usecomposeentityexample.details.RefAddressDetailsEntity
+import io.github.sergeyboboshko.usecomposeentityexample.references.RefMeterZonesEntityDao
+//import io.github.sergeyboboshko.usecomposeentityexample.references.RefMeterZonesEntityDao
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefMetersDao
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefMetersDetailsDao
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefMetersDetailsEntity
@@ -29,4 +31,5 @@ abstract class AppDatabase : RoomDatabase(){
     abstract fun refAddressesDao():RefAddressesDao
     abstract fun refUtilitiesDao():RefUtilitiesDao
     abstract fun refAddressDetailsDao():RefAddressDetailsDao
+    abstract fun refMeterZonesEntityDao(): RefMeterZonesEntityDao
 }

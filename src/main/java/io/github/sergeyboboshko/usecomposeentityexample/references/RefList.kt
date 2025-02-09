@@ -3,6 +3,8 @@ package io.github.sergeyboboshko.usecomposeentityexample.references
 import android.provider.Settings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -28,9 +30,10 @@ import io.github.sergeyboboshko.composeentity.daemons.GlobalColors
 import io.github.sergeyboboshko.composeentity.daemons.localization.LocalizationManager
 import io.github.sergeyboboshko.composeentity.daemons.navigate
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun RefList (){
-    Column(Modifier.padding(all = 4.dp)) {
+    FlowRow(Modifier.padding(all = 4.dp)) {
         Text(
             text = LocalizationManager.getTranslation("references"),
             modifier = Modifier
@@ -111,6 +114,25 @@ fun RefList (){
                 Divider(color = Color.Gray, thickness = 1.dp)
                 Text(
                     text = "The your utilities' payment have tracking",
+                    style = MaterialTheme.typography.titleSmall, color = GlobalColors.currentPalette.text
+                )
+            }
+        }
+        StyledButton(onClick = {
+            //GlobalContext.mainViewModel?.anyUI = RefMeterZonesUI(GlobalContext.context) as BaseUI
+            GlobalContext.mainViewModel?.navController?.navigate(
+                SelfNav.getMainScreen(),
+                RefMeterZonesEntityUI()
+            )
+        }) {
+            Column/*(modifier = Modifier.width(IntrinsicSize.Max)) */{
+                Text(
+                    "TEST Meter Zones :)",
+                    style = MaterialTheme.typography.titleLarge, color = GlobalColors.currentPalette.text
+                )
+                Divider(color = Color.Gray, thickness = 1.dp)
+                Text(
+                    text = "Just check autogeneration",
                     style = MaterialTheme.typography.titleSmall, color = GlobalColors.currentPalette.text
                 )
             }

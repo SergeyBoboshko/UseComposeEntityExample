@@ -28,6 +28,8 @@ import io.github.sergeyboboshko.composeentity.documents.base.CommonDocumentExtEn
 import io.github.sergeyboboshko.composeentity.documents.base.DocUI
 import io.github.sergeyboboshko.composeentity.documents.base.TopDocumentRepository
 import io.github.sergeyboboshko.composeentity.documents.base.TopDocumentViewModel
+import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
+import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
 import io.github.sergeyboboshko.usecomposeentityexample.MyApplication1
 import io.github.sergeyboboshko.usecomposeentityexample.daemons.___DocPayments
 import kotlinx.coroutines.flow.Flow
@@ -38,6 +40,7 @@ import io.github.sergeyboboshko.usecomposeentityexample.R
 import io.github.sergeyboboshko.usecomposeentityexample.daemons.appGlobal
 
 //******************** Entity --------------------------
+@ObjectGeneratorCE(type = GeneratorType.Document, documentType = ___DocPayments)
 @Parcelize
 @Entity(tableName = "doc_payments_invoice")
 data class DocPaymentsinvoiceEntity(
@@ -178,6 +181,10 @@ class DocPaymentsInvoiceUI() : DocUI() {
 
     override fun postMovements(docEntity: Any, rowEntities: List<Any>) {
 
+    }
+@Composable"
+    override fun initMe() {
+        TODO("Not yet implemented")
     }
 
     @Composable

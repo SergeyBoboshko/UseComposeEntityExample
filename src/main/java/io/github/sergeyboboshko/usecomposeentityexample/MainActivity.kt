@@ -48,9 +48,10 @@ import io.github.sergeyboboshko.usecomposeentityexample.ui.theme.UseComposeEntit
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefMetersViewModel
 import java.util.Locale
 import io.github.sergeyboboshko.composeentity.daemons.LocaleHelper
+import io.github.sergeyboboshko.composeentity_ksp.base.DatabaseVersion
 import io.github.sergeyboboshko.usecomposeentityexample.details.RefAddressDetailsViewModel
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefUtilitiesViewModel
-
+@DatabaseVersion(version=1)
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 

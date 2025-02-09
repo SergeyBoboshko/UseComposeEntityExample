@@ -16,6 +16,7 @@ import io.github.sergeyboboshko.composeentity.daemons.BaseFormVM
 import io.github.sergeyboboshko.composeentity.daemons.CommonDescribeSelectField
 import io.github.sergeyboboshko.composeentity.daemons.DetailsButtonsSet
 import io.github.sergeyboboshko.composeentity.daemons.FieldType
+import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.daemons.FieldValidator
 import io.github.sergeyboboshko.composeentity.daemons.GlobalContext
 import io.github.sergeyboboshko.composeentity.daemons.MyViewModel
@@ -31,6 +32,9 @@ import io.github.sergeyboboshko.composeentity.details.base.CommonDetailsExtEntit
 import io.github.sergeyboboshko.composeentity.details.base.DetailsRepository
 import io.github.sergeyboboshko.composeentity.details.base.DetailsViewModel
 import io.github.sergeyboboshko.composeentity.references.base.RefUI
+import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
+import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
+import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
 import io.github.sergeyboboshko.usecomposeentityexample.daemons.appGlobal
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefAddressesEntity
 import io.github.sergeyboboshko.usecomposeentityexample.references.RefMetersEntity
@@ -45,6 +49,8 @@ import kotlin.reflect.KClass
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //       DETAILS      DETAILS      DETAILS      DETAILS      DETAILS      DETAILS      DETAILS      DETAILS
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@ObjectGeneratorCE(type = GeneratorType.Details)
 @Parcelize
 @Entity(tableName = "ref_adress_details",
     foreignKeys = [
@@ -58,8 +64,11 @@ import kotlin.reflect.KClass
 )
 data class RefAddressDetailsEntity(
     @PrimaryKey(autoGenerate = true) override var id: Long,
+    @FormFieldCE(related = true, type = FieldTypeHelper.TEXT, render = false, relatedEntityClass = RefAddressesEntity::class)
     override var parentId: Long,
+    @FormFieldCE(related = true, type = FieldTypeHelper.SELECT,relatedEntityClass = RefUtilitiesEntity::class)
     var utilityId: Long,
+    @FormFieldCE(related = true, type = FieldTypeHelper.SELECT,relatedEntityClass = RefMetersEntity::class)
     var meterId: Long
 ) : CommonDetailsEntity(id, parentId = parentId), Parcelable
 
@@ -77,6 +86,19 @@ data class RefAddressDetailsExt(
     var parent: RefAddressesEntity?
 ) : CommonDetailsExtEntity<RefAddressDetailsEntity>(link)
 
+data class RefAddressDetailsEntityExt(
+    @Embedded override var link: RefAddressDetailsEntity,
+    @Relation(
+        parentColumn = "utilityId", entityColumn = "id"
+    ) var utility: RefUtilitiesEntity?,
+    @Relation(
+        parentColumn = "meterId", entityColumn = "id"
+    ) var meter: RefMetersEntity?,
+    @Relation(
+        parentColumn = "parentId", entityColumn = "id"
+    )
+    var parent: RefAddressesEntity?
+) : CommonDetailsExtEntity<RefAddressDetailsEntity>(link)
 //DAO
 @Dao
 interface RefAddressDetailsDao : SuperTopDAO<RefAddressDetailsEntity, RefAddressDetailsExt> {
@@ -120,7 +142,7 @@ class RefAddressDetailsViewModel @Inject constructor(
         utilityField.extName = "utility"
         fieldDescriptions[utilityField.fieldName] = utilityField as _BaseDescribeFormElement
 
-        //utility
+        //meter
         val meterField =
             CommonDescribeSelectField<RefMetersEntity, RefMetersEntityExt, BaseFormVM<RefMetersEntity, RefMetersEntityExt>>(
                 fieldName = "meterId",
@@ -161,6 +183,7 @@ class RefAddressDetailsUI() :
         parentID =viewModel2.getHatID()
         GlobalContext.mainViewModel?.anyUI = this
         RenderMainScreenList(viewModel, "Utilities  List",formList,this)
+
     }
 
     @Composable
@@ -184,6 +207,10 @@ class RefAddressDetailsUI() :
 
     @Composable
     override fun ViewDetailsScreen(parentid: Long) {
+        TODO("Not yet implemented")
+    }
+@Composable
+    override fun initMe() {
         TODO("Not yet implemented")
     }
 

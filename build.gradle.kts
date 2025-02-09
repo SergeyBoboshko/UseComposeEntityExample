@@ -4,7 +4,9 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp") version "2.0.0-1.0.24"
     id("kotlin-parcelize")
+
 }
 
 android {
@@ -43,6 +45,13 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.15"
     }
+    ksp {
+        arg("skipTests", "true")
+    }
+}
+
+tasks.withType<Test> {
+    enabled = false
 }
 
 dependencies {
@@ -59,12 +68,15 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.dagger.hilt.compiler)
 
+    implementation (project(":composeentity_ksp"))
+    ksp(project(":composeentity_ksp"))
+
     //***************************** ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ***********************************
     implementation(project(":app"))//Be shure co comment this string and uncomment and set up the newest version
     //Warning! In your projects change implementation(project(":app")) to
     //implementation("io.github.sergeyboboshko:composeentity:x.x.x") where x.x.x is last version of the Compose Entity Library
     //The last version you could find on the Maven https://central.sonatype.com/ or oficial Compose Entity blog http://www.homeclub.top/?p=1036
-    //implementation("io.github.sergeyboboshko:composeentity:1.0.5")//Consider to uncomment this string and set the actual version
+    //implementation("io.github.sergeyboboshko:composeentity:1.0.6")//Consider to uncomment this string and set the actual version
     //***************************** ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ***********************************
 
 
@@ -91,4 +103,9 @@ dependencies {
 kapt {
     correctErrorTypes = true
     useBuildCache = true
+}
+
+// Налаштування для KSP
+ksp {
+    arg("ksp.allow.all.target.configuration", "false")  // Це забезпечить застосування конфігурації лише для основного source set
 }

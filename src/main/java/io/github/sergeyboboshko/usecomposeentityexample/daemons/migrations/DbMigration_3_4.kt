@@ -2,8 +2,10 @@ package io.github.sergeyboboshko.usecomposeentityexample.daemons.migrations
 
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import io.github.sergeyboboshko.composeentity_ksp.base.DatabaseMigration
 
-val MIGRATION_3_4 = object : Migration(3, 4) {
+@DatabaseMigration(version = 4)
+object MIGRATION_3_4 : Migration(3, 4) {
     override fun migrate(database: SupportSQLiteDatabase) {
         // Створення нової таблиці для сутності DocPaymentsinvoiceEntity
         database.execSQL("""

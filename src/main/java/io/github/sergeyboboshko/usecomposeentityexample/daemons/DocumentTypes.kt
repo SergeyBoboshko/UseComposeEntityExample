@@ -1,3 +1,3 @@
 package io.github.sergeyboboshko.usecomposeentityexample.daemons
 
-val ___DocPayments = 1
+const val ___DocPayments = 1
