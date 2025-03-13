@@ -182,7 +182,7 @@ class DocPaymentsInvoiceUI() : DocUI() {
     override fun postMovements(docEntity: Any, rowEntities: List<Any>) {
 
     }
-@Composable"
+@Composable
     override fun initMe() {
         TODO("Not yet implemented")
     }
